@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<title>Sokoban level editor</title>
+
+	<link rel="stylesheet" type="text/css" href="sprites.css">
+
+	<style type="text/css">
+
+		#left, #right {
+			float: left;
+		}
+		#left {
+			width: 240px;
+		}
+
+		label {
+			display: block;
+		}
+
+		table {
+			border: 5px solid #000;
+			border-collapse: collapse;
+		}
+
+		td {
+			cursor: pointer;
+			height: 64px;
+			padding: 0;
+			width: 64px;
+		}
+
+	</style>
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script type="text/javascript">
+
+	var tiles = Array(
+		'#', // Wall
+		'@', // Player
+		'+', // Player on goal
+		'$', // Box
+		'*', // Box on goal
+		'.', // Goal
+		' ' // Floor
+		);
+
+	var tile = '#';
+
+	var minWidth = 5;
+	var minHeight = 3;
+
+	var Width = 5;
+	var Height = 3;
+
+	var LevelName = 'Unnamed_level';
+	var Level = [];
+	var LevelBuilder = [];
+
+	var x;
+	var y;
+
+	var Downz = false;
+
+	function charToTile(arg) {
+		for (var i = 0; i < tiles.length; i++) {
+			if (arg == tiles[i]) {
+				switch(arg) {
+				case '#':
+					return 'wall';
+					break;
+				case '@':
+					return 'player_floor';
+					break;
+				case '+':
+					return 'player_goal';
+					break;
+				case '$':
+					return 'box_floor';
+					break;
+				case '*':
+					return 'box_goal';
+					break;
+				case '.':
+					return 'goal';
+					break;
+				case ' ':
+					return 'floor';
+					break;
+				}
+			}
+		}
+	}
+
+	function buildLevel() {
+
+		LevelBuilder = [];
+
+		for ( i = 0; i < Height; i++ ) {
+			LevelBuilder[i] = [];
+			for ( n = 0; n < Width; n++ ) {
+				var useTile = ' ';
+				if ( i in Level ) {
+					if ( n in Level[i] ) {
+						useTile = Level[i][n];
+					}
+				}
+				LevelBuilder[i][n] = useTile;
+			}
+		}
+
+		Level = LevelBuilder;
+
+		paintLevel();
+		outputCode();
+	}
+
+	function paintLevel() {
+
+		var lvlStr = '';
+
+		for ( i = 0; i < Level.length; i++ ) {
+			lvlStr += '<tr>';
+			for ( n = 0; n < Level[i].length; n++ ) {
+				lvlStr += '<td class="'+charToTile(Level[i][n])+'" data-row="'+i+'" data-column="'+n+'"></td>';
+			}
+			lvlStr += '</tr>';
+		}
+
+		$('#level').html(lvlStr);
+	}
+
+	function outputCode() {
+
+		var lvlStr = LevelName + ' = Array( \n';
+
+		for ( i = 0; i < Level.length; i++ ) {
+			lvlStr += "  '";
+			for ( n = 0; n < Level[i].length; n++ ) {
+				lvlStr += Level[i][n];
+			}
+			if ( i != ( Level.length - 1 ) ) {
+				lvlStr += "', \n";
+			} else {
+				lvlStr += "' \n";
+			}
+			
+		}
+
+		lvlStr += ");";
+
+		$('#levelcode').text(lvlStr);
+
+	}
+
+	$(document).ready(function() {
+
+		buildLevel();
+
+		$('#LevelName').attr('value', LevelName);
+		$('#LevelName').change(function() {
+			LevelName = $('#LevelName').attr('value');			
+		});
+
+		$(document).mousedown(function() {
+			Downz = true;
+		});
+	
+		$(document).mouseup(function() {
+			Downz = false;
+		});
+
+		$('td').live('mouseover', function() {
+			if ( Downz ) {
+				x = $(this).data('row');
+				y = $(this).data('column');
+				Level[x][y] = tile;
+				buildLevel();
+			}
+		});
+
+		$('td').live('mousedown', function() {
+			x = $(this).data('row');
+			y = $(this).data('column');
+			Level[x][y] = tile;
+			buildLevel();
+		});
+
+		$('#ac').click(function() {
+			Width++;
+			buildLevel();
+		});
+
+		$('#ar').click(function() {
+			Height++;
+			buildLevel();
+		});
+
+		$("input[name=tile]").change(function () {
+			tile = $(this).attr('value');
+		});
+
+	});
+
+	</script>
+
+</head>
+<body>
+
+	<h1>Sokoban level editor</h1>
+
+	<div id="left">
+
+		<form class="sprite2">
+
+			<input type="text" name="LevelName" id="LevelName">
+
+			<label for="wall"><input type="radio" name="tile" id="wall" value="#" checked> wall <div class="wall"></div></label>
+			<label for="player_floor"><input type="radio" name="tile" id="player_floor" value="@"> player on floor <div class="player_floor"></div></label>
+			<label for="player_goal"><input type="radio" name="tile" id="player_goal" value="+"> player on goal <div class="player_goal"></div></label>
+			<label for="box_floor"><input type="radio" name="tile" id="box_floor" value="$"> box on floor <div class="box_floor"></div></label>
+			<label for="box_goal"><input type="radio" name="tile" id="box_goal" value="*"> box on goal <div class="box_goal"></div></label>
+			<label for="goal"><input type="radio" name="tile" id="goal" value="."> goal <div class="goal"></div></label>
+			<label for="floor"><input type="radio" name="tile" id="floor" value=" "> floor <div class="floor"></div></label>
+		</form>
+
+	</div>
+
+	<div id="right">
+
+		<button id="ac">add Column</button>
+		<button id="ar">add Row</button>
+
+		<table id="level" class="sprite2"></table>
+
+		<pre><code id="levelcode"></code></pre>
+
+	</div>
+
+</body>
+</html>
