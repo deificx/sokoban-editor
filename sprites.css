@@ -1,66 +1,46 @@
-.sprite1 .wall,
-.sprite1 .player_floor,
-.sprite1 .player_goal,
-.sprite1 .box_floor,
-.sprite1 .box_goal,
-.sprite1 .goal,
-.sprite1 .floor {
-	background: url(sprite1.png) no-repeat;
-}
-
-.sprite2 .wall,
-.sprite2 .player_floor,
-.sprite2 .player_goal,
-.sprite2 .box_floor,
-.sprite2 .box_goal,
-.sprite2 .goal,
-.sprite2 .floor {
-	background: url(sprite2.png) no-repeat;
-}
-
-.sprite1 .wall,
-.sprite1 .player_floor,
-.sprite1 .player_goal,
-.sprite1 .box_floor,
-.sprite1 .box_goal,
-.sprite1 .goal,
-.sprite1 .floor,
-.sprite2 .wall,
-.sprite2 .player_floor,
-.sprite2 .player_goal,
-.sprite2 .box_floor,
-.sprite2 .box_goal,
-.sprite2 .goal,
-.sprite2 .floor {
+.wall,
+.player_floor,
+.player_goal,
+.box_floor,
+.box_goal,
+.goal,
+.floor,
+.wall,
+.player_floor,
+.player_goal,
+.box_floor,
+.box_goal,
+.goal,
+.floor {
 	height: 64px;
 	overflow: hidden;
 	width: 64px;
 }
 
-.sprite1 .wall, .sprite2 .wall {
+.wall {
 	background-position: 0 0;
 }
 
-.sprite1 .player_floor, .sprite2 .player_floor {
+.player_floor {
 	background-position: -64px 0;
 }
 
-.sprite1 .player_goal, .sprite2 .player_goal {
+.player_goal {
 	background-position: -128px 0;
 }
 
-.sprite1 .box_floor, .sprite2 .box_floor {
+.box_floor {
 	background-position: -192px 0;
 }
 
-.sprite1 .box_goal, .sprite2 .box_goal {
+.box_goal {
 	background-position: -256px 0;
 }
 
-.sprite1 .goal, .sprite2 .goal {
+.goal {
 	background-position: -320px 0;
 }
 
-.sprite1 .floor, .sprite2 .floor {
+.floor {
 	background-position: -384px 0;
 }

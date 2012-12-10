@@ -12,7 +12,7 @@
 			float: left;
 		}
 		#left {
-			width: 240px;
+			width: 80px;
 		}
 
 		pre {
@@ -21,7 +21,18 @@
 		}
 
 		label {
+			border: 1px solid #000;
 			display: block;
+			height: 64px;
+			width: 64px;
+		}
+
+		label.focus {
+			border: 1px solid #f00;
+		}
+
+		label input, label span {
+			display: none;
 		}
 
 		table {
@@ -34,6 +45,10 @@
 			height: 64px;
 			padding: 0;
 			width: 64px;
+		}
+
+		td, form div {
+			background: url(sprite2.png) no-repeat 0 0;
 		}
 
 	</style>
@@ -59,7 +74,6 @@
 	var Width = 5;
 	var Height = 3;
 
-	var LevelName = 'Unnamed_level';
 	var Level = [];
 	var LevelBuilder = [];
 
@@ -134,8 +148,9 @@
 
 	function rtrim(s) {
 		var r=s.length -1;
-		while(r > 0 && s[r] == ' ')
-		{	r-=1;	}
+		while(r > 0 && s[r] == ' ')	{
+			r-=1;
+		}
 		return s.substring(0, r+1);
 	}
 
@@ -150,6 +165,7 @@
 				lvlStr += Level[i][n];
 				lvlRaw += Level[i][n];
 			}
+			lvlStr = rtrim( lvlStr );
 			lvlStr += '</L> \n';
 			lvlRaw += '\n';
 			
@@ -290,11 +306,6 @@
 
 		buildLevel();
 
-		$('#LevelName').attr('value', LevelName);
-		$('#LevelName').change(function() {
-			LevelName = $('#LevelName').attr('value');			
-		});
-
 		$(document).live('mousedown', function() {
 			Downz = true;
 		});
@@ -335,6 +346,8 @@
 
 		$("input[name=tile]").change(function () {
 			tile = $(this).attr('value');
+			$('label').removeAttr('class');
+			$(this).parent().addClass('focus');
 		});
 
 	});
@@ -348,17 +361,14 @@
 
 	<div id="left">
 
-		<form class="sprite2">
-
-			<input type="text" name="LevelName" id="LevelName">
-
-			<label for="wall"><input type="radio" name="tile" id="wall" value="#" checked> wall <div class="wall"></div></label>
-			<label for="player_floor"><input type="radio" name="tile" id="player_floor" value="@"> player on floor <div class="player_floor"></div></label>
-			<label for="player_goal"><input type="radio" name="tile" id="player_goal" value="+"> player on goal <div class="player_goal"></div></label>
-			<label for="box_floor"><input type="radio" name="tile" id="box_floor" value="$"> box on floor <div class="box_floor"></div></label>
-			<label for="box_goal"><input type="radio" name="tile" id="box_goal" value="*"> box on goal <div class="box_goal"></div></label>
-			<label for="goal"><input type="radio" name="tile" id="goal" value="."> goal <div class="goal"></div></label>
-			<label for="floor"><input type="radio" name="tile" id="floor" value=" "> floor <div class="floor"></div></label>
+		<form>
+			<label for="wall" class="focus"><input type="radio" name="tile" id="wall" value="#" checked><span> wall </span><div class="wall"></div></label>
+			<label for="player_floor"><input type="radio" name="tile" id="player_floor" value="@"><span> player on floor </span><div class="player_floor"></div></label>
+			<label for="player_goal"><input type="radio" name="tile" id="player_goal" value="+"><span> player on goal </span><div class="player_goal"></div></label>
+			<label for="box_floor"><input type="radio" name="tile" id="box_floor" value="$"><span> box on floor </span><div class="box_floor"></div></label>
+			<label for="box_goal"><input type="radio" name="tile" id="box_goal" value="*"><span> box on goal </span><div class="box_goal"></div></label>
+			<label for="goal"><input type="radio" name="tile" id="goal" value="."><span> goal </span><div class="goal"></div></label>
+			<label for="floor"><input type="radio" name="tile" id="floor" value=" "><span> floor </span><div class="floor"></div></label>
 		</form>
 
 	</div>
@@ -369,7 +379,7 @@
 		<button id="addRow">add Row</button>
 		<button id="trimLevel">trim</button>
 
-		<table id="level" class="sprite2"></table>
+		<table id="level"></table>
 
 		<h3>scl xml</h3>
 		<pre><code id="levelcode_scl"></code></pre>
