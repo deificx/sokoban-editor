@@ -133,22 +133,18 @@
 
 	function outputCode() {
 
-		var lvlStr = LevelName + ' = Array( \n';
+		var lvlStr = '<Level Id="1" Width="'+Width+'" Height="'+Height+'">\n';
 
 		for ( i = 0; i < Level.length; i++ ) {
-			lvlStr += "  '";
+			lvlStr += '  <L>';
 			for ( n = 0; n < Level[i].length; n++ ) {
 				lvlStr += Level[i][n];
 			}
-			if ( i != ( Level.length - 1 ) ) {
-				lvlStr += "', \n";
-			} else {
-				lvlStr += "' \n";
-			}
+			lvlStr += '</L> \n';
 			
 		}
 
-		lvlStr += ");";
+		lvlStr += "</Level>";
 
 		$('#levelcode').text(lvlStr);
 
