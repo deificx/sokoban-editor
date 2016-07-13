@@ -1,10 +1,8 @@
-.wall,
-.player_floor,
-.player_goal,
-.box_floor,
-.box_goal,
-.goal,
-.floor,
+
+body {
+	margin: 0;
+}
+
 .wall,
 .player_floor,
 .player_goal,
@@ -12,35 +10,38 @@
 .box_goal,
 .goal,
 .floor {
+	display: inline-block;
 	height: 64px;
 	overflow: hidden;
 	width: 64px;
 }
 
-.wall {
-	background-position: 0 0;
+.preview {
+	margin: 0 auto;
+	width: 480px;
 }
 
-.player_floor {
-	background-position: -64px 0;
-}
 
-.player_goal {
-	background-position: -128px 0;
-}
+#set-1 .wall			{ background: url(sprite1.png) no-repeat 0 0; }
+#set-1 .player_floor	{ background: url(sprite1.png) no-repeat -64px 0; }
+#set-1 .player_goal		{ background: url(sprite1.png) no-repeat -128px 0; }
+#set-1 .box_floor		{ background: url(sprite1.png) no-repeat -192px 0; }
+#set-1 .box_goal		{ background: url(sprite1.png) no-repeat -256px 0; }
+#set-1 .goal			{ background: url(sprite1.png) no-repeat -320px 0; }
+#set-1 .floor			{ background: url(sprite1.png) no-repeat -384px 0; }
 
-.box_floor {
-	background-position: -192px 0;
-}
+#set-2 .wall			{ background: url(sprite2.png) no-repeat 0 0; }
+#set-2 .player_floor	{ background: url(sprite2.png) no-repeat -64px 0; }
+#set-2 .player_goal		{ background: url(sprite2.png) no-repeat -128px 0; }
+#set-2 .box_floor		{ background: url(sprite2.png) no-repeat -192px 0; }
+#set-2 .box_goal		{ background: url(sprite2.png) no-repeat -256px 0; }
+#set-2 .goal			{ background: url(sprite2.png) no-repeat -320px 0; }
+#set-2 .floor			{ background: url(sprite2.png) no-repeat -384px 0; }
 
-.box_goal {
-	background-position: -256px 0;
-}
-
-.goal {
-	background-position: -320px 0;
-}
-
-.floor {
-	background-position: -384px 0;
-}
+#set-3 .wall			{ background: url(sprite3.png) no-repeat 0 0; }
+#set-3 .player_floor	{ background: url(sprite3.png) no-repeat -64px 0; }
+#set-3 .player_goal		{ background: url(sprite3.png) no-repeat -128px 0; }
+#set-3 .box_floor		{ background: url(sprite3.png) no-repeat -192px 0; }
+#set-3 .box_goal		{ background: url(sprite3.png) no-repeat -256px 0; }
+#set-3 .goal			{ background: url(sprite3.png) no-repeat -320px 0; }
+#set-3 .floor			{ background: url(sprite3.png) no-repeat -384px 0; }

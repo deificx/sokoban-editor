@@ -47,10 +47,6 @@
 			width: 64px;
 		}
 
-		td, form div {
-			background: url(sprite2.png) no-repeat 0 0;
-		}
-
 	</style>
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -306,13 +302,13 @@
 
 		buildLevel();
 
-		$(document).live('mousedown', function() {
-			Downz = true;
-		});
+		// $(document).live('mousedown', function() {
+		// 	Downz = true;
+		// });
 	
-		$(document).live('mouseup', function() {
-			Downz = false;
-		});
+		// $(document).live('mouseup', function() {
+		// 	Downz = false;
+		// });
 
 		$('td').live('mouseover', function() {
 			if ( Downz ) {
@@ -328,6 +324,10 @@
 			y = $(this).data('column');
 			Level[x][y] = tile;
 			buildLevel();
+		});
+
+		$('td').live('mouseup', function() {
+			Downz = false;
 		});
 
 		$('#addColumn').click(function() {
@@ -361,7 +361,7 @@
 
 	<div id="left">
 
-		<form>
+		<form id="set-2">
 			<label for="wall" class="focus"><input type="radio" name="tile" id="wall" value="#" checked><span> wall </span><div class="wall"></div></label>
 			<label for="player_floor"><input type="radio" name="tile" id="player_floor" value="@"><span> player on floor </span><div class="player_floor"></div></label>
 			<label for="player_goal"><input type="radio" name="tile" id="player_goal" value="+"><span> player on goal </span><div class="player_goal"></div></label>
@@ -379,13 +379,17 @@
 		<button id="addRow">add Row</button>
 		<button id="trimLevel">trim</button>
 
-		<table id="level"></table>
+		<div id="set-2">
+			<table id="level"></table>
+		</div>
 
 		<h3>scl xml</h3>
 		<pre><code id="levelcode_scl"></code></pre>
 		<h3>raw sokoban</h3>
 		<pre><code id="levelcode_raw"></code></pre>
 
+		<p><a href="tiles.html">Sprites</a></p>
+		<p><a href="https://github.com/deificx/sokoban-editor">Project on github</a></p>
 	</div>
 
 </body>
